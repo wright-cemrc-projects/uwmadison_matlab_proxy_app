@@ -2,15 +2,15 @@
 cluster:
   - "cluster"
 form:
-  - version
+  - auto_modules_matlab
   - auto_accounts
   - bc_num_hours
   - num_cores
   - node_type
   - bc_email_on_started
 attributes:
-  version: 
-    widget: select
+  auto_modules_matlab:
+    default: false
     label: "MATLAB version"
     options:
       - ["2024b", "matlab/r2024b"]
