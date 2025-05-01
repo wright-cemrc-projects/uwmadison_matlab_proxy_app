@@ -1,17 +1,15 @@
 <%-
 
-  err_msg = "You are not a member of the matlab group. Please email oschelp@osc.edu to request access to MATLAB."
-  raise(StandardError, err_msg) unless CurrentUser.group_names.include?('matlab')
-
-  ppn = num_cores.blank? ? 96 : num_cores.to_i
+  ppn = num_cores.blank? ? 64 : num_cores.to_i
 
   case node_type
-  when "largemem"
-    slurm_args = [ "--ntasks-per-node", "#{ppn}", "--partition", "hugemem" ]
-  when "gpu"
-    slurm_args = [ "--ntasks-per-node", "#{ppn}", "--gpus-per-node", "1" ]
+  when "ood_gpu"
+    slurm_args = [ "--ntasks-per-node", "#{ppn}", "--partition", "ood_gpu", "--mem-per-cpu", "1gb" ]
+  when "ood_cpu"
+    slurm_args = [ "--ntasks-per-node", "#{ppn}", "--partition", "ood_cpu", "--mem-per-cpu", "1gb" ]
   else
-    slurm_args = [ "--ntasks-per-node", "#{ppn}" ]
+    err_msg = "Unknown queue"
+    raise(StandardError, err_msg) 
   end
 %>
 ---
