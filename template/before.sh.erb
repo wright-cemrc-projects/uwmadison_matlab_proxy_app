@@ -2,7 +2,9 @@
 
 [[ $(type -t module) == "function" ]] && export -f module
 
-port=$(find_port ${host})
+# Restrict the port range
+port=$(find_port ${host} 5000 6000)
+# port=$(find_port ${host})
 
 export MWI_AUTH_TOKEN=$(create_passwd 32)
 password=$MWI_AUTH_TOKEN
